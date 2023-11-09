@@ -12,12 +12,16 @@ const distance = (a: number[], b: number[]): number => {
 };
 
 
-class KMeans {
+export class KMeans {
   k: number;
-  data: [];
-  error: unknown;
+  data: number[][] = [];
+  error: number|null = null;
+  iterations: unknown;
+  iterationLogs: unknown;
+  centroids: number[][] = [];
+  centroidAssignments: Array<number|null> = [];
   
-  constructor(k: number, data) {
+  constructor(k: number, data: number[][]) {
     this.k = k;
     this.data = data;
     this.reset();
@@ -85,10 +89,11 @@ class KMeans {
   }
   
   // Dysponując punktem wybranym z danych, metoda określa centroid położony najbliżej niego i kojarzy ten punkt ze znalezionym centroidem. Metoda zwraca wartość logiczną określającą, czy skojarzenie punktu z centroidem. uległo zmianie, czy nie. Wynik ten jest używany do określenia warunku zakończenia działania algorytmu.
-  assignPointToCentroid(pointIndex) {
+  assignPointToCentroid(pointIndex: number) {
     const lastAssignedCentroid = this.centroidAssignments[pointIndex];
     const point = this.data[pointIndex];
     let minDistance = null;
+    let assignedCentroid = null;
     
     for (let i = 0; i < this.centroids.length; i++) {
       const centroid = this.centroids[i];
@@ -115,5 +120,3 @@ class KMeans {
     return didAnyPointsGetReassigned;
   }
 }
-
-export default KMeans;

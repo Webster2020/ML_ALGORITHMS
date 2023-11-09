@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.showChart = exports.convertPoints = void 0;
-const convertPoints = (pointsArr) => {
+export const convertPoints = (pointsArr) => {
     const pointsCoords = pointsArr.map(point => {
         return {
             x: point[0],
@@ -11,8 +8,7 @@ const convertPoints = (pointsArr) => {
     console.log({ pointsCoords });
     return pointsCoords;
 };
-exports.convertPoints = convertPoints;
-const showChart = (points, centroids, chartNo) => {
+export const showChart = (points, centroids, chartNo) => {
     const ctx = document.querySelector(`.myChart${chartNo}`);
     const data = {
         datasets: [
@@ -41,5 +37,4 @@ const showChart = (points, centroids, chartNo) => {
         }
     });
 };
-exports.showChart = showChart;
 //# sourceMappingURL=chart.js.map

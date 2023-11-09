@@ -1,4 +1,4 @@
-import KMeans from "./algorithms_ML/kMeans/kMeans";
+import { KMeans } from "./algorithms_ML/kMeans/kMeans";
 import { convertPoints, showChart } from "./algorithms_ML/kMeans/chart";
 import { example_randomCentroids } from "./algorithms_ML/kMeans/data";
 

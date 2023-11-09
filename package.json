@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/MichalStatsPerform/ts_1.0#readme",
   "devDependencies": {
+    "@types/chart.js": "^2.9.40",
     "lite-server": "^2.6.1"
+  },
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "chartjs-node-canvas": "^4.1.6"
   }
 }

@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const mean = (numbers) => {
     return numbers.reduce((sum, val) => sum + val, 0) / numbers.length;
 };
@@ -10,6 +8,10 @@ const distance = (a, b) => {
 };
 class KMeans {
     constructor(k, data) {
+        this.data = [];
+        this.error = null;
+        this.centroids = [];
+        this.centroidAssignments = [];
         this.k = k;
         this.data = data;
         this.reset();
@@ -59,6 +61,7 @@ class KMeans {
         const lastAssignedCentroid = this.centroidAssignments[pointIndex];
         const point = this.data[pointIndex];
         let minDistance = null;
+        let assignedCentroid = null;
         for (let i = 0; i < this.centroids.length; i++) {
             const centroid = this.centroids[i];
             const distanceToCentroid = distance(point, centroid);
@@ -80,5 +83,5 @@ class KMeans {
         return didAnyPointsGetReassigned;
     }
 }
-exports.default = KMeans;
+export default KMeans;
 //# sourceMappingURL=kMeans.js.map
