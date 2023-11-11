@@ -1,153 +1,46 @@
-// //tsc -w app.ts || or tsc -w
+# Getting Started with Create React App
 
-// // interface Admin {
-// type Admin = {
-//   name: string;
-//   privilages: string[];
-// };
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-// // interface Employee {
-// type Employee = {
-//   name: string;
-//   startDate: Date;
-// };
+## Available Scripts
 
-// // interface ElevatedEmployee extends Employee, Admin {}
-// type ElevatedEmployee = Admin & Employee;
+In the project directory, you can run:
 
-// const e1: ElevatedEmployee = {
-//   name: "Max",
-//   privilages: ["server"],
-//   startDate: new Date(),
-// };
+### `npm start`
 
-// console.log(e1);
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-// // interception types
-// type Combinable = string | number;
-// type Numeric = number | boolean;
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-// type Universal = Combinable & Numeric;
+### `npm test`
 
-// // function add(n1: Combinable, n2: Combinable) {
-// //   return n1 + n2;
-// // }
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-// // OVERLOAD FUNCTIONS
-// function add(n1: number, n2: number): number; // overload function (it means: if n1 and n2 are numbers -> return number)
-// function add(n1: string, n2: string): string;
-// function add(n1: Combinable, n2: Combinable) {
-//   if (typeof n1 === "string" || typeof n2 === "string") {
-//     return n1.toString() + n2.toString();
-//   }
-//   return n1 + n2;
-// }
+### `npm run build`
 
-// console.log(add(2, 5));
-// // console.log(add("3", 8));
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-// // OPTIONAL CHAINING
-// const fetchUserData = {
-//   id: "u1",
-//   name: "Max",
-//   // job: { title: "CEO", description: "My own comapny" },
-// };
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-// console.log(fetchUserData?.job?.title);
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-// // NULLISH COALESCING
-// const userInput = null;
-// const storedData = userInput ?? "DEFAULT";
-// console.log(storedData);
+### `npm run eject`
 
-// type UnknowEmployee = Employee | Admin;
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-// function printEmplyoeeInformation(emp: UnknowEmployee) {
-//   console.log("Name: " + emp.name);
-//   if ("privilages" in emp) {
-//     console.log("Privileges: " + emp.privilages);
-//   }
-//   if ("startDate" in emp) {
-//     console.log("StartDate: " + emp.startDate);
-//   }
-// }
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-// printEmplyoeeInformation(e1);
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-// class Car {
-//   drive() {
-//     console.log("Driving a car...");
-//   }
-// }
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-// class Truck {
-//   drive() {
-//     console.log("Driving a truck...");
-//   }
-//   loadCargo(amount: number) {
-//     console.log("Loading cargo... " + amount);
-//   }
-// }
+## Learn More
 
-// type Vehicle = Car | Truck;
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-// const v1 = new Car();
-// const v2 = new Truck();
-
-// function useVehicle(vehicle: Vehicle) {
-//   vehicle.drive();
-//   if ("loadCargo" in vehicle) {
-//     vehicle.loadCargo(1000);
-//   }
-//   // second way (maybe better)
-//   if (vehicle instanceof Truck) {
-//     vehicle.loadCargo(2000);
-//   }
-// }
-
-// useVehicle(v1);
-// useVehicle(v2);
-
-// interface Bird {
-//   type: "bird";
-//   flyingSpeed: number;
-// }
-
-// interface Horse {
-//   type: "horse";
-//   runningSpeed: number;
-// }
-
-// type Animal = Bird | Horse;
-
-// function moveAnimal(animal: Animal) {
-//   let speed;
-//   switch (animal.type) {
-//     case "bird":
-//       speed = animal.flyingSpeed;
-//       break;
-//     case "horse":
-//       speed = animal.runningSpeed;
-//   }
-//   console.log("Moving at speed: " + speed);
-// }
-
-// moveAnimal({ type: "bird", flyingSpeed: 10 });
-
-// // const userInputElement = <HTMLInputElement>(
-// //   document.getElementById("user-input")
-// // );
-// const userInputElement = document.getElementById(
-//   "user-input"
-// )! as HTMLInputElement;
-
-// userInputElement.value = "Hi there!";
-
-// interface ErrorContainer {
-//   [prop: string]: string; //key and value must be a string in object
-// }
-
-// const errorBag: ErrorContainer = {
-//   1: "Dupa", // 1 is ok key because it can be converted to a number
-//   email: "Not a valid email!",
-// };
+To learn React, check out the [React documentation](https://reactjs.org/).
