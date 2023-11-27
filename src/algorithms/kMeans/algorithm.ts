@@ -110,6 +110,7 @@ export class KMeans {
     return lastAssignedCentroid !== assignedCentroid;
   }
   
+  // for all data points method runs "assignPointToCentroid" method and after that it returns info if for any point its connected to specific centroid changed 
   assignPointsToCentroids() {
     let didAnyPointsGetReassigned = false;
     for (let i = 0; i < this.data.length; i++) {

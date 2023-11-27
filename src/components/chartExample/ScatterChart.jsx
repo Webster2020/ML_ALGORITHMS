@@ -1,4 +1,7 @@
+// DOCS: https://react-chartjs-2.js.org/examples/scatter-chart/
+
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Chart as ChartJS,
   LinearScale,
@@ -8,9 +11,19 @@ import {
   Legend,
 } from 'chart.js';
 import { Scatter } from 'react-chartjs-2';
-// import faker from 'faker';
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
+
+// converting Points
+export const convertPoints = (pointsArr) => {
+  const pointsCoords = pointsArr.map(point => {
+    return {
+      x: point[0],
+      y: point[1]
+    } 
+  });
+  return pointsCoords;
+}
 
 export const options = {
   scales: {
@@ -18,21 +31,22 @@ export const options = {
       beginAtZero: true,
     },
   },
+  // elements: {
+  //   point: {
+  //     radius: 10
+  //   }
+  // }
 };
 
-export const data = {
-  datasets: [
-    {
-      label: 'A dataset',
-      data: [{
-        x: 1,
-        y: 1
-      }],
-      backgroundColor: 'rgba(255, 99, 132, 1)',
-    },
-  ],
-};
+export const ScatterChart = ({data}) => {
+  return (
+    // <div className={'centroidChart'}>
+      <Scatter options={options} data={data} />
+    // </div>
+  )
+}
 
-export function ScatterChart() {
-  return <Scatter options={options} data={data} />;
+ScatterChart.prototypes = {
+  options: PropTypes.object,
+  data: PropTypes.object
 }

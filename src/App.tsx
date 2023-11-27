@@ -2,27 +2,32 @@ import React from 'react';
 import './App.css';
 
 import Title from './components/title/Title';
-import { ScatterChart } from './components/chartExample/ScatterChart';
+import { ScatterChart, convertPoints } from './components/chartExample/ScatterChart';
+import { generateCentroidsData } from './algorithms/kMeans/K_Means';
 
-function App() {
+const data = {
+  datasets: [
+    {
+      label: 'Random Centroids',
+      data: generateCentroidsData().centroids,
+      backgroundColor: 'rgba(255, 99, 132, 1)',
+      pointRadius: 10,
+    },
+    {
+      label: 'Points',
+      data: generateCentroidsData().points,
+      backgroundColor: 'rgba(255, 199, 132, 1)',
+      pointRadius: 5,
+    },
+  ],
+};
+
+const App = () => {
   return (
     <div className="App">
       <header className="App-header">
         <Title />
-        <ScatterChart />
-
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
+        <ScatterChart data={data}/>
       </header>
     </div>
   );
