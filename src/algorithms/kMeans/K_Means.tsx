@@ -1,6 +1,6 @@
 import { KMeans } from "./algorithm";
 import { convertPoints } from "../../components/chartExample/ScatterChart";
-import { example_randomCentroids } from "./data";
+import { example_randomCentroids, getCornerPoints } from "./data";
 
 export const generateCentroidsData = () => {
   for (let j = 0; j <= 6; j++) {  
@@ -12,6 +12,7 @@ export const generateCentroidsData = () => {
   // --- Preparing points, centroids and display them on chart ---
   const points = convertPoints(example_randomCentroids);
   const centroids = convertPoints((new KMeans(2, example_randomCentroids)).centroids);
-
-  return {points, centroids};
+  const cornerPoints = convertPoints(getCornerPoints(example_randomCentroids));
+  
+  return {points, centroids, cornerPoints};
 }

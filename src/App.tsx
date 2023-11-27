@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import Title from './components/title/Title';
-import { ScatterChart, convertPoints } from './components/chartExample/ScatterChart';
+import { ScatterChart } from './components/chartExample/ScatterChart';
 import { generateCentroidsData } from './algorithms/kMeans/K_Means';
 
 const data = {
@@ -18,6 +18,12 @@ const data = {
       data: generateCentroidsData().points,
       backgroundColor: 'rgba(255, 199, 132, 1)',
       pointRadius: 5,
+    },
+    {
+      label: 'corners',
+      data: generateCentroidsData().cornerPoints,
+      backgroundColor: 'rgba(0, 199, 132, 1)',
+      pointRadius: 2,
     },
   ],
 };
