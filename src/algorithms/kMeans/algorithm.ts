@@ -1,7 +1,7 @@
 // means for array of numbers
-// const mean = (numbers: number[]): number => {
-//   return numbers.reduce((sum, val) => sum + val, 0) / numbers.length
-// };
+const mean = (numbers: number[]): number => {
+  return numbers.reduce((sum, val) => sum + val, 0) / numbers.length
+};
 
 // distance between two points
 const distance = (a: number[], b: number[]): number => {
@@ -19,7 +19,7 @@ export class KMeans {
   iterations: unknown;
   iterationLogs: unknown;
   centroids: number[][] = [];
-  centroidAssignments: Array<number|null> = [];
+  centroidAssignments: Array<number> = [];
   
   constructor(k: number, data: number[][]) {
     this.k = k;
@@ -93,7 +93,7 @@ export class KMeans {
     const lastAssignedCentroid = this.centroidAssignments[pointIndex];
     const point = this.data[pointIndex];
     let minDistance = null;
-    let assignedCentroid = null;
+    let assignedCentroid = 0; // null
     
     for (let i = 0; i < this.centroids.length; i++) {
       const centroid = this.centroids[i];
@@ -119,6 +119,52 @@ export class KMeans {
     }
     
     return didAnyPointsGetReassigned;
+  }
+
+  // for provided centroid method returns array all points connected with it
+  getPointsForCentroid(centroidIndex: number|null) {
+    const points = [];
+    for (let i = 0; i < this.data.length; i++) {
+      const assignment = this.centroidAssignments[i];
+      if (assignment === centroidIndex) {
+        points.push(this.data[i]);
+      }
+    }
+    return points;
+  }
+
+  // for provided centroid method set avarage value of connected to it points location and then it use this value as new lacation of centroid
+  updateCentroidLocation(centroidIndex: number) {
+    const thisCentroidPoints = this.getPointsForCentroid(centroidIndex);
+    const dimensionality = this.getDimensionality();
+    const newCentroid = [];
+    for (let dimension = 0; dimension < dimensionality; dimension++) {
+      newCentroid[dimension] = mean(thisCentroidPoints.map(point => point[dimension]));
+    }
+    this.centroids[centroidIndex] = newCentroid;
+    return newCentroid;
+  }
+
+  // for all centroids method call updateCentroidLocation method
+  updateCentroidLocations() {
+    for (let i = 0; i < this.centroids.length; i++) {
+      this.updateCentroidLocation(i)
+    }
+  }
+
+
+  calculateError() {
+    let sumDistanceSquared = 0;
+    for (let i = 0; i < this.data.length; i++) {
+      const centroidIndex = this.centroidAssignments[i];
+      const centroid = this.centroids[centroidIndex];
+      const point = this.data[i];
+      const thisDistance = distance(point, centroid);
+      sumDistanceSquared += thisDistance * thisDistance;
+    }
+
+    this.error = Math.sqrt(sumDistanceSquared / this.data.length);
+    return this.error;
   }
 }
 
