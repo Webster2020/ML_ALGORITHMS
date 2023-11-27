@@ -5,23 +5,25 @@ import Title from './components/title/Title';
 import { ScatterChart } from './components/chartExample/ScatterChart';
 import { generateCentroidsData } from './algorithms/kMeans/K_Means';
 
+const chartData = generateCentroidsData()
+
 const data = {
   datasets: [
     {
       label: 'Random Centroids',
-      data: generateCentroidsData().centroids,
+      data: chartData.centroids,
       backgroundColor: 'rgba(255, 99, 132, 1)',
       pointRadius: 10,
     },
     {
       label: 'Points',
-      data: generateCentroidsData().points,
+      data: chartData.points,
       backgroundColor: 'rgba(255, 199, 132, 1)',
       pointRadius: 5,
     },
     {
       label: 'corners',
-      data: generateCentroidsData().cornerPoints,
+      data: chartData.cornerPoints,
       backgroundColor: 'rgba(0, 199, 132, 1)',
       pointRadius: 2,
     },
@@ -33,7 +35,9 @@ const App = () => {
     <div className="App">
       <header className="App-header">
         <Title />
-        <ScatterChart data={data}/>
+        <div>
+          <ScatterChart data={data}/>
+        </div>
       </header>
     </div>
   );

@@ -40,9 +40,7 @@ export const options = {
 
 export const ScatterChart = ({data}) => {
   return (
-    // <div className={'centroidChart'}>
-      <Scatter options={options} data={data} />
-    // </div>
+    <Scatter style={{height: '400px'}} options={options} data={data} />
   )
 }
 
