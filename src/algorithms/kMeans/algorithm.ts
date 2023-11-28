@@ -16,8 +16,8 @@ export class KMeans {
   k: number;
   data: number[][] = [];
   error: number|null = null;
-  iterations: unknown;
-  iterationLogs: unknown;
+  iterations: number | undefined;
+  iterationLogs: Array<object> | undefined;
   centroids: number[][] = [];
   centroidAssignments: Array<number> = [];
   
@@ -165,6 +165,35 @@ export class KMeans {
 
     this.error = Math.sqrt(sumDistanceSquared / this.data.length);
     return this.error;
+  }
+
+  // main loop
+  solve(maxIterations: number = 1000) {
+    if (this.iterations) {
+
+      while (this.iterations < maxIterations) {
+        const didAssignmentsChange = this.assignPointsToCentroids();
+        this.updateCentroidLocations();
+        this.calculateError();
+
+        if (this.iterationLogs) {
+          this.iterationLogs[this.iterations] = {
+            centroids: [...this.centroids],
+            iteration: this.iterations,
+            error: this.error,
+            didReachSteadyState: !didAssignmentsChange
+          };
+        }
+
+        if (didAssignmentsChange === false) {
+          break;
+        }
+
+        this.iterations++;
+      }
+
+      return this.iterationLogs && this.iterationLogs[this.iterationLogs.length - 1]
+    }
   }
 }
 

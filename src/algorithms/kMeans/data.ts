@@ -2,6 +2,12 @@ export const example_randomCentroids = [
   [1, 3], [5, 8], [3, 0]
 ];
 
+export const example_2d3k = [
+  [1,2], [2,3], [2,5], [1,6], [4,6], 
+  [3,5], [2,4], [4,3], [5,2], [6,9], 
+  [4,4], [3,3], [8,6], [7,5], [9,6]
+];
+
 export const getCornerPoints = (points: number[][]) => {
   const getExtremes = (points: number[][], m: number, n: number, e: number) => {
     return points.sort((a, b) => m*b[e] + n*a[e])[0][e]
