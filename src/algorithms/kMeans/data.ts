@@ -5,7 +5,10 @@ export const example_randomCentroids = [
 export const example_2d3k = [
   [1,2], [2,3], [2,5], [1,6], [4,6], 
   [3,5], [2,4], [4,3], [5,2], [6,9], 
-  [4,4], [3,3], [8,6], [7,5], [9,6]
+  [4,4], [3,3], [8,6], [7,5], [9,6],
+  [9,7], [8,8], [7,9], [11,3], [11,2],
+  [9,9], [7,8], [6,8], [12,2], [14,3],
+  [15,1], [15,4], [14,2], [13,1], [16,4]
 ];
 
 export const getCornerPoints = (points: number[][]) => {
@@ -18,7 +21,7 @@ export const getCornerPoints = (points: number[][]) => {
   const yMax = getExtremes(points, 1, -1, 1);
   const yMin = getExtremes(points, -1, 1, 1);
 
-  console.log({xMax, xMin, yMax, yMin});
+  // console.log({xMax, xMin, yMax, yMin});
   
   const cornerPoints = [
     [xMax+1, yMax+1], [xMax+1, yMin-1], [xMin-1, yMin-1], [xMin-1, yMax+1]
