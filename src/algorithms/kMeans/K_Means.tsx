@@ -1,6 +1,7 @@
 import { KMeans } from "./algorithm";
-import { convertPoints } from "../../components/chartExample/ScatterChart";
-import { example_randomCentroids, getCornerPoints, example_2d3k } from "./data";
+import { getCornerPoints } from "./utils";
+import { example_2d3k } from "./data";
+import { ScatterChart, convertPoints } from '../../components/chartExample/ScatterChart';
 
 const someData = example_2d3k;
 
@@ -20,3 +21,40 @@ export const generateCentroidsData = () => {
   
   return {points, centroids, cornerPoints};
 }
+
+const ex_1_solver = new KMeans(3, example_2d3k);
+const ex_1_centroids = ex_1_solver.solve().centroids;
+const chartData = generateCentroidsData()
+
+const data = {
+  datasets: [
+    {
+      label: 'Random Centroids',
+      data: convertPoints(ex_1_centroids),
+      backgroundColor: 'rgba(255, 99, 132, 1)',
+      pointRadius: 10,
+    },
+    {
+      label: 'Points',
+      data: chartData.points,
+      backgroundColor: 'rgba(255, 199, 132, 1)',
+      pointRadius: 5,
+    },
+    {
+      label: 'corners',
+      data: chartData.cornerPoints,
+      backgroundColor: 'rgba(0, 199, 132, 1)',
+      pointRadius: 2,
+    },
+  ],
+};
+
+const KMeansComponent = () => {
+  return (
+    <div>
+      <ScatterChart data={data}/>
+    </div>
+  );
+}
+
+export default KMeansComponent;
