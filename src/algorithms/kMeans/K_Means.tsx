@@ -1,6 +1,6 @@
 import { KMeans } from "./algorithm";
 import { getCornerPoints } from "./utils";
-import { example_2d3k } from "./data";
+import { example_2d3k, example_3d3k } from "./data";
 import { ScatterChart, convertPoints } from '../../components/chartExample/ScatterChart';
 
 const someData = example_2d3k;
@@ -48,6 +48,10 @@ const data = {
     },
   ],
 };
+
+const ex_2_solver = new KMeans(3, example_3d3k);
+const ex_2_centroids = ex_2_solver.solve().centroids;
+console.log({ex_2_centroids});
 
 const KMeansComponent = () => {
   return (
