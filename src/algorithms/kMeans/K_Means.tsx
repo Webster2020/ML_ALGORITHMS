@@ -1,63 +1,82 @@
-import { KMeans } from "./algorithm";
+import { KMeans, KMeansAutosolver } from "./algorithm";
 import { getCornerPoints } from "./utils";
-import { example_2d3k, example_3d3k } from "./data";
+import { example_2d3k, example_2dnk, example_3d3k } from "./data";
 import { ScatterChart, convertPoints } from '../../components/chartExample/ScatterChart';
 
-const someData = example_2d3k;
+const exampleData = example_2d3k;
+const exampleData2 = example_2dnk;
 
-export const generateCentroidsData = () => {
-  const clasters = 3;
-
-  for (let j = 0; j <= 6; j++) {  
-    const ex_randomCentroids_solver = new KMeans(clasters, someData);
-    console.log(ex_randomCentroids_solver.solve());
-    j += 1;
-  }
+export const generateCentroidsData = (checkedData: any, knownCluster: boolean | number) => {
   
   // --- Preparing points, centroids and display them on chart ---
-  const points = convertPoints(someData);
-  const centroids = convertPoints((new KMeans(clasters, someData)).centroids);
-  const cornerPoints = convertPoints(getCornerPoints(someData));
+  const points = convertPoints(checkedData);
+  let centroids;
+  if (knownCluster && typeof knownCluster === 'number') {
+    centroids = convertPoints((new KMeans(knownCluster, checkedData)).centroids);
+  } else {
+    centroids = convertPoints((new KMeansAutosolver(1, 5, 5, checkedData)).solve().centroids);
+  }
+  const cornerPoints = convertPoints(getCornerPoints(checkedData));
   
   return {points, centroids, cornerPoints};
-}
-
-const ex_1_solver = new KMeans(3, example_2d3k);
-const ex_1_centroids = ex_1_solver.solve().centroids;
-const chartData = generateCentroidsData()
-
-const data = {
-  datasets: [
-    {
-      label: 'Random Centroids',
-      data: convertPoints(ex_1_centroids),
-      backgroundColor: 'rgba(255, 99, 132, 1)',
-      pointRadius: 10,
-    },
-    {
-      label: 'Points',
-      data: chartData.points,
-      backgroundColor: 'rgba(255, 199, 132, 1)',
-      pointRadius: 5,
-    },
-    {
-      label: 'corners',
-      data: chartData.cornerPoints,
-      backgroundColor: 'rgba(0, 199, 132, 1)',
-      pointRadius: 2,
-    },
-  ],
 };
 
+const generateData = (checkedData: any, knownCluster: boolean | number) => {
+  let ex_solver;
+  if (knownCluster && typeof knownCluster === 'number') {
+    ex_solver = new KMeans(knownCluster, checkedData);
+  } else {
+    ex_solver = new KMeansAutosolver(1, 5, 5, checkedData);
+  }
+
+  const ex_centroids = ex_solver.solve().centroids;
+  const chartData = generateCentroidsData(checkedData, knownCluster)
+  
+  const data = {
+    datasets: [
+      {
+        label: 'Random Centroids',
+        data: convertPoints(ex_centroids),
+        backgroundColor: 'rgba(255, 99, 132, 1)',
+        pointRadius: 10,
+      },
+      {
+        label: 'Points',
+        data: chartData.points,
+        backgroundColor: 'rgba(255, 199, 132, 1)',
+        pointRadius: 5,
+      },
+      {
+        label: 'corners',
+        data: chartData.cornerPoints,
+        backgroundColor: 'rgba(0, 199, 132, 1)',
+        pointRadius: 2,
+      },
+    ],
+  };
+
+  return data;
+};
+
+// ======================================================
+// 3d example - not rendered on chart
 const ex_2_solver = new KMeans(3, example_3d3k);
 const ex_2_centroids = ex_2_solver.solve().centroids;
 console.log({ex_2_centroids});
+// ======================================================
 
 const KMeansComponent = () => {
   return (
-    <div>
-      <ScatterChart data={data}/>
-    </div>
+    <>
+      <div>
+        <h3>3 known clusters</h3>
+        <ScatterChart data={generateData(exampleData, 3)}/>
+      </div>
+      <div>
+        <h3>Unknown amount of clusters</h3>
+        <ScatterChart data={generateData(exampleData2, false)}/>
+      </div>
+    </>
   );
 }
 
