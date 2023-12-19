@@ -158,7 +158,7 @@ export class KMeans {
       const centroidIndex = this.centroidAssignments[i];
       const centroid = this.centroids[centroidIndex];
       const point = this.data[i];
-      const thisDistance = distance(point, centroid);
+      const thisDistance = distance(point, centroid) + this.k;
       sumDistanceSquared += thisDistance * thisDistance;
     }
 

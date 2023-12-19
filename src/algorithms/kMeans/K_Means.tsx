@@ -74,7 +74,7 @@ const KMeansComponent = () => {
       </div>
       <div>
         <h3>Unknown amount of clusters</h3>
-        <ScatterChart data={generateData(exampleData2, false, 2)}/>
+        <ScatterChart data={generateData(exampleData2, false, 6)}/>
       </div>
     </>
   );
