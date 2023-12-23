@@ -9,8 +9,9 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Title />
+        <Title txt={'kmeans'}/>
         <KMeansComponent />
+        <Title txt={'knn'}/>
         <KNNComponent />
       </header>
     </div>

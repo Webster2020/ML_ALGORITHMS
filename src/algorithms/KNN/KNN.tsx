@@ -18,10 +18,10 @@ const generateData = (checkedData: any) => {
 
   const selectDataByLabel = (data: number[][], labels: string[]) => {
     data.forEach((dataPoint: number[], index: number) => {
-      console.log({dataPoint}, labels[index]);
       if(labels[index] === LABELS.WOMAN) {
         chartData.women.push(dataPoint);
-      } else if(labels[index] === LABELS.MAN) {
+      };
+      if(labels[index] === LABELS.MAN) {
         chartData.men.push(dataPoint);
       };
     })

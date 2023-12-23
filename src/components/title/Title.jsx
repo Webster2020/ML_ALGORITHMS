@@ -1,9 +1,9 @@
 import React from 'react';
 import { toBigLetters } from '../../utils/toBigLetters';
 
-const Title = () => {
+const Title = ({ txt }) => {
   return (
-    <h1>{toBigLetters('Hello TSX')}</h1>
+    <h1>{toBigLetters(txt)}</h1>
   )
 }
 
