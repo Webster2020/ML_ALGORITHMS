@@ -9,13 +9,13 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Title txt={'kmeans'}/>
+        <Title txt={'kmeans'} />
         <KMeansComponent />
-        <Title txt={'knn'}/>
+        <Title txt={'knn'} />
         <KNNComponent />
       </header>
     </div>
   );
-}
+};
 
 export default App;

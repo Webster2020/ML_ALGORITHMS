@@ -9,10 +9,13 @@ module.exports = {
       env: {
         node: true,
       },
-      files: ['.eslintrc.{js,cjs}'],
-      parserOptions: {
-        sourceType: 'script',
+      files: ['.eslintrc.{js,cjs}', '*.ts'],
+      rules: {
+        'no-undef': 'off',
       },
+      // parserOptions: {
+      //   sourceType: 'script',
+      // },
     },
   ],
   parserOptions: {
@@ -27,7 +30,7 @@ module.exports = {
       {
         trailingComma: 'all',
         tabWidth: 2,
-        semi: false,
+        semi: true,
         singleQuote: true,
         bracketSpacing: true,
         eslintIntegration: true,
@@ -35,4 +38,4 @@ module.exports = {
       },
     ],
   },
-}
+};
