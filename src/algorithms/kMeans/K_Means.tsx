@@ -1,5 +1,5 @@
 import { KMeans, KMeansAutosolver } from "./algorithm";
-import { getCornerPoints } from "./utils";
+import { getCornerPoints } from "../../utils/utils";
 import { example_2d3k, example_2dnk, example_3d3k } from "./data";
 import { ScatterChart, convertPoints } from '../../components/chartExample/ScatterChart';
 

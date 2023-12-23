@@ -28,7 +28,7 @@ export const convertPoints = (pointsArr) => {
 export const options = {
   scales: {
     y: {
-      beginAtZero: true,
+      beginAtZero: false,
     },
   },
   // elements: {

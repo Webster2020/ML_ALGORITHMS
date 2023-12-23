@@ -3,6 +3,7 @@ import './App.css';
 
 import Title from './components/title/Title';
 import KMeansComponent from './algorithms/kMeans/K_Means';
+import KNNComponent from './algorithms/KNN/KNN';
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
       <header className="App-header">
         <Title />
         <KMeansComponent />
+        <KNNComponent />
       </header>
     </div>
   );
