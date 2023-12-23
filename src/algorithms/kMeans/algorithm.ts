@@ -191,7 +191,7 @@ export class KMeans {
         this.iterations++;
       }
 
-      console.log(this.iterationLogs && this.iterationLogs[this.iterationLogs.length - 1]);
+      // console.log(this.iterationLogs && this.iterationLogs[this.iterationLogs.length - 1]);
       return this.iterationLogs[this.iterationLogs.length - 1]
     }
 

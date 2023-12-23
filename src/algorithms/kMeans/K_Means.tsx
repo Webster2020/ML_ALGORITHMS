@@ -62,7 +62,7 @@ const generateData = (checkedData: any, knownCluster: boolean | number, maxClust
 // 3d example - not rendered on chart
 const ex_2_solver = new KMeans(3, example_3d3k);
 const ex_2_centroids = ex_2_solver.solve().centroids;
-console.log({ex_2_centroids});
+// console.log({ex_2_centroids});
 // ======================================================
 
 const KMeansComponent = () => {

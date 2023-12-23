@@ -1,4 +1,4 @@
-// import { KNN } from "./algorithm";
+import { KNN } from "./algorithm";
 import { getCornerPoints } from "../../utils/utils";
 import { weight_height } from "./data";
 import { ScatterChart, convertPoints } from '../../components/chartExample/ScatterChart';
@@ -54,14 +54,33 @@ const generateData = (checkedData: any) => {
   };
 
   return data;
-
 };
+
+const testResults = (checkedData: any) => {
+  console.log('Testowanie wzrostu i wagi dla k=5')
+  console.log('==========================')
+  
+  const solver1 = new KNN(5, checkedData.data, checkedData.labels)
+  
+  console.log("Sprawdzanie punktu 'zdecydowanie mężczyzna':")
+  console.log(solver1.predict([90, 191]))
+  console.log("\nSprawdzanie punktu 'prawdopodobnie mężczyzna':")
+  console.log(solver1.predict([77, 178]))
+  console.log("\nSprawdzanie punktu 'zupełnie nie wiadomo':")
+  console.log(solver1.predict([63, 163]))
+  console.log("\nSprawdzanie punktu 'prawdopodobnie kobieta':")
+  console.log(solver1.predict([59, 160]))
+  console.log("\nSprawdzanie punktu 'zdecydowanie kobieta':")
+  console.log(solver1.predict([54, 152]))
+};
+
+testResults(weight_height);
 
 const KNNComponent = () => {
   return (
     <>
       <div>
-        <h3>KNN</h3>
+        <h3>Weight & Height</h3>
         <ScatterChart data={generateData(weight_height)}/>
       </div>
     </>

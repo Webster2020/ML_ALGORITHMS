@@ -62,24 +62,24 @@ export class KNN {
     return map;
   }
 
-//   predict(point: [number, number]) {
+  predict(point: [number, number]) {
 
-//     const map = this.generateDistanceMap(point);
-//     const votes = map.slice(0, this.k);
-//     const voteCounts = votes
-//         // Redukujemy do obiektu o postaci {etykieta: liczbaGłosów}
-//         .reduce((obj, vote) => Object.assign({}, obj, {[vote.label]: (obj[vote.label] || 0) + 1}), {})
-//     ;
-//     const sortedVotes = Object.keys(voteCounts)
-//         .map(label => ({label, count: voteCounts[label]}))
-//         .sort((a, b) => a.count > b.count ? -1 : 1)
-//     ;
+    const map = this.generateDistanceMap(point);
+    const votes = map.slice(0, this.k);
+    const voteCounts = votes
+        // Redukujemy do obiektu o postaci {etykieta: liczbaGłosów}
+        .reduce((obj, vote) => Object.assign({}, obj, {[vote.label]: (obj[vote.label] || 0) + 1}), {})
+    ;
+    const sortedVotes = Object.keys(voteCounts)
+        .map(label => ({label, count: voteCounts[label]}))
+        .sort((a, b) => a.count > b.count ? -1 : 1)
+    ;
 
-//     return {
-//         label: sortedVotes[0].label,
-//         voteCounts,
-//         votes
-//     };
-//   }
+    return {
+        label: sortedVotes[0].label,
+        voteCounts,
+        votes
+    };
+  }
 
 }
