@@ -20,7 +20,7 @@ export class KNN {
     this.labels = labels;
   }
 
-  generateDistanceMap(point: [number, number]) {
+  generateDistanceMap(point: number[]) {
     const map: MapItem[] = [];
     let maxDistanceInMap;
 
@@ -62,10 +62,10 @@ export class KNN {
     return map;
   }
 
-  predict(point: [number, number]) {
+  predict(point: number[]) {
     const map = this.generateDistanceMap(point);
     const votes: MapItem[] = map.slice(0, this.k);
-    console.log({ votes });
+    // Redukujemy do obiektu o postaci {etykieta: liczbaGłosów}
     const voteCounts = votes.reduce(
       (obj: MapItem, { label }) => ({
         ...obj,
@@ -76,10 +76,6 @@ export class KNN {
       {},
     );
 
-    // const voteCounts = votes
-    //     // Redukujemy do obiektu o postaci {etykieta: liczbaGłosów}
-    //     .reduce((obj, vote) => Object.assign({}, obj, {[vote.label]: (obj[vote.label] || 0) + 1}), {})
-    // ;
     const sortedVotes = Object.keys(voteCounts)
       // @ts-ignore
       .map((label) => ({ label, count: voteCounts[label] }))

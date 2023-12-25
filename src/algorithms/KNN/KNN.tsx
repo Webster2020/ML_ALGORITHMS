@@ -2,6 +2,16 @@ import { KNN } from './algorithm';
 import { getCornerPoints } from '../../utils/utils';
 import { weight_height } from './data';
 import { ScatterChart, convertPoints } from '../../components/chartExample/ScatterChart';
+// import decolorize from './features/decolorize';
+
+console.log('Odbarwianie zdjęć');
+console.log('==========================');
+
+['landscape.jpeg', 'lily.jpeg', 'waterlilies.jpeg'].forEach((filename) => {
+  console.log('Odbarwianie pliku ' + filename + '...');
+  // tslint:disable-next-line: no-var-requires
+  // decolorize(filename).then(() => console.log('Plik ' + filename + ' został odbarwiony.'));
+});
 
 const generateData = (checkedData: any) => {
   const LABELS = {
