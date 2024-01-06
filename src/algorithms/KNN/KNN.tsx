@@ -70,17 +70,31 @@ const testResults = (checkedData: any) => {
   console.log('==========================');
 
   const solver1 = new KNN(5, checkedData.data, checkedData.labels);
+  const testData = [
+    [90, 191],
+    [77, 178],
+    [63, 163],
+    [59, 160],
+    [54, 152],
+  ];
 
   console.log("Sprawdzanie punktu 'zdecydowanie mężczyzna':");
-  console.log(solver1.predict([90, 191]));
+  console.log(solver1.predict(testData[0]));
   console.log("\nSprawdzanie punktu 'prawdopodobnie mężczyzna':");
-  console.log(solver1.predict([77, 178]));
+  console.log(solver1.predict(testData[1]));
   console.log("\nSprawdzanie punktu 'zupełnie nie wiadomo':");
-  console.log(solver1.predict([63, 163]));
+  console.log(solver1.predict(testData[2]));
   console.log("\nSprawdzanie punktu 'prawdopodobnie kobieta':");
-  console.log(solver1.predict([59, 160]));
+  console.log(solver1.predict(testData[3]));
   console.log("\nSprawdzanie punktu 'zdecydowanie kobieta':");
-  console.log(solver1.predict([54, 152]));
+  console.log(solver1.predict(testData[4]));
+
+  const results = testData.map((testCase) => solver1.predict(testCase).label);
+
+  return {
+    testData,
+    results,
+  };
 };
 
 testResults(weight_height);
@@ -91,6 +105,11 @@ const KNNComponent = () => {
       <div>
         <h3>Weight & Height</h3>
         <ScatterChart data={generateData(weight_height)} />
+        <ul>
+          {testResults(weight_height).testData.map((testCase, i) => (
+            <li key={i}>{`W: ${testCase[0]} | H: ${testCase[1]} => ${testResults(weight_height).results[i]}`}</li>
+          ))}
+        </ul>
       </div>
     </>
   );
