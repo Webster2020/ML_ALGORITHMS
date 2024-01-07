@@ -46,11 +46,55 @@ export class BayesClassifier {
     this.database.tokens[token][label] = this.getTokenCount(token, label) + 1;
   }
 
+  // returns amount of tokens for specific category/label; if no label passed, it returns total number of tokens w all learning set
   getTokenCount(token: string, label: string | null = null) {
     if (label) {
       return (this.database.tokens[token] || {})[label] || 0;
     } else {
       return Object.values(this.database.tokens[token] || {}).reduce((sum: any, count) => sum + count, 0);
     }
+  }
+
+  // for passed document it predict category, to which it belongs
+  predict(text: string) {
+    const probabilities = this.calculateAllLabelProbabilities(text);
+    const best = probabilities[0];
+
+    return {
+      label: best.label,
+      probability: best.probability,
+      probabilities
+    };
+  }
+
+  // for passed document it calculate its probability for each label/category occur in learning set; first element of returned table is label/caegory best fit to current document
+  calculateAllLabelProbabilities(text: string) {
+    const tokens = this.tokenizer(text);
+    return this.getAllLabels().map((label) => ({
+      label,
+      probability: this.calculateLabelProbability(label, tokens)
+    })).sort((a, b) => a.probability > b.probability ? -1 : 1);
+  }
+
+  // returns all labels collected during learning process
+  getAllLabels() {
+    return Object.keys(this.database.labels);
+  }
+
+  // base on tokens stream (document splits to tokens); method calculate probabilitiy of having label by current document
+  calculateLabelProbability(label: string, tokens: string[]) {
+    // assumption - probability of occur all labels are equal; or probability can be calculate base on frequency occure individual labels
+    const probLabel = 1 / this.getAllLabels().length;
+    // how important must be token to be included; tokens result must be bigger than epsilon from default token
+    // this solution makes increase accuracy from 78% to 87,8% (for e=0.17)
+    const epsilon = 0.15;
+    // for each token we have to calculate "token result" - probability of situation where current token belong to category, assuming that current token exists in it
+    const tokenScores = tokens.map((token) => this.calculateTokenScore(token, label)).filter((score) => Math.abs(probLabel - score) > epsilon);
+    // to avoid floating point underflow during operating on really small numbers, sum probability individual tokens w logarithm space; this solution  is used only because of floating point operations - it should not affect on global algorithm workflow
+    const logSum = tokenScores.reduce((sum, score) => sum + (Math.log(1 - score) - Math.log(score)), 0);
+
+    const probability = 1 / (1 + Math.exp(logSum));
+
+    return probability;
   }
 }
