@@ -97,4 +97,35 @@ export class BayesClassifier {
 
     return probability;
   }
+
+  // Based on passed token and label it calculate probability of having given label by document (with assumption that inside it occurs given token). We use simpler version of Bayes clasificator: calculation of probability of token occurs, in condition that we are talking about given category (frequency of words in category occur). This method makes some operations on tokens which occur rare. 
+  calculateTokenScore(token: string, label: string) {
+    const rareTokenWieght = 3;
+
+    const totalDocumentCount = this.getLabelDocumentCount();
+    const labelDocumentCount = this.getLabelDocumentCount(label);
+    const notLabelDocumentCOunt = totalDocumentCount - labelDocumentCount;
+
+    // assume equal probability give 1% accuracy, we use frequency of individual labels
+    const probLabel = 1 / this.getAllLabels().length;
+    const probNotLabel = 1 - probLabel;
+
+    const tokenLabelCount = this.getTokenCount(token, label);
+    const tokenTotalCount = this.getTokenCount(token);
+    const tokenNotLabelCount = tokenTotalCount - tokenLabelCount;
+
+    const probTokenGivenLabel = tokenLabelCount / labelDocumentCount;
+    const probTokenGivenNotLabel = tokenNotLabelCount / notLabelDocumentCOunt;
+    const probTokenLabelSupport = probTokenGivenLabel * probLabel;
+    const probTokenNotLabelSupport = probTokenGivenNotLabel * probNotLabel;
+
+    const rawWordScore = probTokenLabelSupport / (probTokenLabelSupport + probTokenNotLabelSupport);
+    
+    // rare occur tokens - set weighted average (s - weight, n - total number of individual token occur)
+    const s = rareTokenWieght;
+    const n = tokenTotalCount;
+    const adjustedTokenScore = ((s * probLabel) + (n * (rawWordScore || probLabel))) / (s + n);
+
+    return adjustedTokenScore;
+  }
 }
